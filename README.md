@@ -217,7 +217,7 @@ Devicon brand marks, and the file-manager link.
 | Timeline | Collapse when finished | Choose shell, write, edit, read, and other tool groups independently. Failed calls and agent questions stay open. |
 | Timeline | Collapse length | Fold every selected card, or only cards over 10, 20, or 50 lines. |
 | Timeline | Open while running | Open tool cards while their calls run, then apply the collapse rules. Disable this setting to apply those rules from the start. |
-| Timeline | Fold reasoning summaries | Fold summaries after completion. Disable this setting to keep every summary open. |
+| Timeline | Fold reasoning summaries | Keep summaries folded from the start, including while streaming. Click a summary to expand it. Disable this setting to keep every summary open. |
 | Timeline | Let Paseo fold tool calls | Off by default. On desktop and web, let Paseo draw calls when its display setting folds them. |
 | Timeline | Show reasoning between folded calls | On by default. Keep reasoning visible while Paseo folds tool calls. |
 | Timeline | Live checklist | On by default. Hide older updates when the agent feed identifies a newer checklist. Keep cards visible while the feed is unavailable. Disable this setting to show every update. |

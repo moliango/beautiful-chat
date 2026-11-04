@@ -356,6 +356,15 @@ test("text size has four reading presets and scales fonts in half points", () =>
   }
 });
 
+test("reasoning cards start folded until the reader opens them", () => {
+  const h = harness();
+  const p = h.preferences;
+  const { reasoningCardStartsExpanded } = h.load("client/tool-collapse.ts");
+  assert.equal(reasoningCardStartsExpanded({ collapseReasoning: true }), false);
+  assert.equal(reasoningCardStartsExpanded({ collapseReasoning: false }), true);
+  assert.equal(reasoningCardStartsExpanded({ ...p.DEFAULT_PREFERENCES }), false);
+});
+
 test("text size clamps finite values and persists across iOS and web host clients", async () => {
   const server = host();
   const p = harness("ios").preferences;

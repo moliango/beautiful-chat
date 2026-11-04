@@ -138,7 +138,7 @@ export interface EnhancerPreferences {
    * folds when the call finishes. Off leaves running cards to the rules above.
    */
   expandWhileRunning: boolean;
-  /** A reasoning summary folds once the thought completes. Off keeps every summary open. */
+  /** A reasoning summary starts folded, even while streaming. Off opens every summary by default. */
   collapseReasoning: boolean;
   /** Show only the newest checklist where it arrived. Off shows every update. */
   liveChecklist: boolean;

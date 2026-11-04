@@ -6,7 +6,7 @@ import type { PluginTimelineItemProps } from "@getpaseo/plugin/client";
 import type { PluginTheme } from "@getpaseo/plugin";
 import { useThemeTokens } from "./components/theme-tokens";
 import { ToolCallout } from "./components/tool-callouts";
-import { toolCardStartsExpanded } from "./tool-collapse";
+import { reasoningCardStartsExpanded, toolCardStartsExpanded } from "./tool-collapse";
 import { ReasoningTrace } from "./components/reasoning-trace";
 import { TaskList } from "./components/task-list";
 import { UserMessage } from "./components/user-message";
@@ -222,7 +222,7 @@ export function LiveReasoningRenderer({
       <ReasoningTrace
         data={reasoningData}
         tokens={tokens}
-        defaultExpanded={data.phase === "streaming" || !preferences.collapseReasoning}
+        defaultExpanded={reasoningCardStartsExpanded(preferences)}
       />
       <ChecklistFeed agentId={agentId} />
       <TimelineTailHub

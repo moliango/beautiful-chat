@@ -816,7 +816,7 @@ export function BeautifulChatSettingsPage({ theme }: PluginSurfaceProps) {
             )}
             <ToggleRow
               title="折叠推理摘要"
-              description="推理完成后折叠摘要。关闭此设置可让所有摘要保持展开。"
+              description="推理摘要出现时默认折叠，点击标题可随时展开。关闭此设置可让所有摘要默认展开。"
               value={preferences.collapseReasoning}
               onChange={(collapseReasoning) => updateEnhancerPreferences({ collapseReasoning })}
               tokens={tokens}

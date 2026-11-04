@@ -53,3 +53,10 @@ export function toolCardStartsExpanded(
   if (!preferences.collapseTools.includes(toolGroup(data.tool))) return true;
   return preferences.collapseLineLimit > 0 && bodyLines(data) <= preferences.collapseLineLimit;
 }
+
+/** A reasoning card starts folded, including while its text is still streaming. */
+export function reasoningCardStartsExpanded(
+  preferences: Pick<EnhancerPreferences, "collapseReasoning">,
+): boolean {
+  return !preferences.collapseReasoning;
+}
