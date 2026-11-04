@@ -341,10 +341,10 @@ test("text size has four reading presets and scales fonts in half points", () =>
   const h = harness();
   const p = h.preferences;
   assert.deepEqual(p.TEXT_SIZE_OPTIONS, [
-    { value: "0.9", label: "Small" },
-    { value: "1", label: "Default" },
-    { value: "1.15", label: "Large" },
-    { value: "1.3", label: "XL" },
+    { value: "0.9", label: "小" },
+    { value: "1", label: "默认" },
+    { value: "1.15", label: "大" },
+    { value: "1.3", label: "特大" },
   ]);
   const { buildThemeTokens } = h.load("client/components/theme-tokens.ts");
   const colors = { surface0: "#111111", foreground: "#eeeeee", foregroundMuted: "#aaaaaa", accent: "#00ff00", statusDanger: "#ff0000" };

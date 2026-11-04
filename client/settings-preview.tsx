@@ -22,16 +22,16 @@ const REASONING: ReasoningTraceData = {
   steps: [{
     id: "read",
     number: 1,
-    title: "Review the layout",
+    title: "检查布局",
     status: "completed",
-    content: "I will keep the text clear and the code easy to read.",
+    content: "我会保持文字清晰，并让代码易于阅读。",
   }],
 };
 
 const BASH: ToolCalloutData = {
   id: "settings-bash",
   tool: "bash",
-  title: "Check types",
+  title: "检查类型",
   status: "running",
   command: "npm run typecheck",
   shell: {
@@ -42,20 +42,20 @@ const BASH: ToolCalloutData = {
 
 const CHECKLIST: TaskListData = {
   id: "settings-checklist",
-  phaseName: "Plan",
+  phaseName: "计划",
   tasks: [
-    { id: "layout", title: "Review the layout", phase: "Review", status: "completed" },
-    { id: "types", title: "Check the types", phase: "Check", status: "in_progress" },
+    { id: "layout", title: "检查布局", phase: "复查", status: "completed" },
+    { id: "types", title: "检查类型", phase: "检查", status: "in_progress" },
   ],
 };
 
 const REPLY = [
-  "## Ready to review",
+  "## 准备复查",
   "",
-  "The `theme` follows your settings.",
+  "`theme` 会遵循你的设置。",
   "",
-  "- Clear text",
-  "- Code with the selected font",
+  "- 清晰文字",
+  "- 使用所选字体的代码",
   "",
   "```typescript",
   "const ready = x => x !== null;",
@@ -76,18 +76,18 @@ export function SettingsPreview({
   return (
     <View testID="settings-preview" style={[styles.panel, { borderColor: tokens.borderSubtle, backgroundColor: tokens.surface1 }]}>
       <View style={[styles.header, { borderBottomColor: tokens.borderSubtle }]}>
-        <Text accessibilityRole="header" style={[styles.title, { color: tokens.foreground, fontFamily: tokens.fontUi }]}>Preview</Text>
-        <Text style={[styles.description, textStyle]}>Sample conversation. Changes appear here immediately.</Text>
+        <Text accessibilityRole="header" style={[styles.title, { color: tokens.foreground, fontFamily: tokens.fontUi }]}>预览</Text>
+        <Text style={[styles.description, textStyle]}>示例对话。更改会立即显示在这里。</Text>
       </View>
       <View style={styles.conversation}>
         {preferences.enhancedUserBubble ? (
           <UserMessage
-            text="Use clear text and keep the code easy to read."
+            text="使用清晰的文字，并让代码易于阅读。"
             tokens={tokens}
             foldAfterLines={preferences.promptFoldLimit}
           />
         ) : (
-          <Text style={[styles.note, textStyle]}>Paseo draws the prompt with its own bubble.</Text>
+          <Text style={[styles.note, textStyle]}>Paseo 会使用自己的气泡显示提示词。</Text>
         )}
         <ReasoningTrace
           key={`reasoning-${preferences.collapseReasoning}`}
@@ -110,11 +110,11 @@ export function SettingsPreview({
               foldCodeAfter={preferences.codeFoldLimit}
             />
           ) : (
-            <Text style={[styles.note, textStyle]}>Paseo draws the reply. Enable Assistant markdown to preview its styles.</Text>
+            <Text style={[styles.note, textStyle]}>Paseo 会显示回复。启用“助手 Markdown”后可预览其样式。</Text>
           )}
         </View>
         <View>
-          <Text style={[styles.label, textStyle]}>Checklist</Text>
+          <Text style={[styles.label, textStyle]}>检查清单</Text>
           <TaskList data={CHECKLIST} tokens={tokens} />
         </View>
       </View>

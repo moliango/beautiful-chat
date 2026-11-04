@@ -46,10 +46,10 @@ export type CollapseLineLimit = (typeof COLLAPSE_LINE_LIMITS)[number];
 
 /** Multiplier applied to every font size the plugin draws. */
 export const TEXT_SIZE_OPTIONS = [
-  { value: "0.9", label: "Small" },
-  { value: "1", label: "Default" },
-  { value: "1.15", label: "Large" },
-  { value: "1.3", label: "XL" },
+  { value: "0.9", label: "小" },
+  { value: "1", label: "默认" },
+  { value: "1.15", label: "大" },
+  { value: "1.3", label: "特大" },
 ] as const;
 
 /**

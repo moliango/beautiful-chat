@@ -36,31 +36,31 @@ import {
 } from "./preferences";
 
 const ACCENT_OPTIONS: ReadonlyArray<{ id: AccentPreset; label: string }> = [
-  { id: "host", label: "Paseo theme" },
-  { id: "jade", label: "Jade" },
-  { id: "violet", label: "Violet" },
-  { id: "amber", label: "Amber" },
-  { id: "rose", label: "Rose" },
+  { id: "host", label: "Paseo 主题" },
+  { id: "jade", label: "翡翠绿" },
+  { id: "violet", label: "紫罗兰" },
+  { id: "amber", label: "琥珀黄" },
+  { id: "rose", label: "玫红" },
 ];
 const MARK_COLOUR_OPTIONS: ReadonlyArray<{ value: MarkColorPreset; label: string; color: string | null }> = [
-  { value: "default", label: "Default", color: null },
-  { value: "yellow", label: "Yellow", color: MARK_COLOR_PRESETS.yellow },
-  { value: "green", label: "Mint", color: MARK_COLOR_PRESETS.green },
-  { value: "blue", label: "Sky", color: MARK_COLOR_PRESETS.blue },
-  { value: "pink", label: "Rose", color: MARK_COLOR_PRESETS.pink },
-  { value: "orange", label: "Peach", color: MARK_COLOR_PRESETS.orange },
+  { value: "default", label: "默认", color: null },
+  { value: "yellow", label: "黄色", color: MARK_COLOR_PRESETS.yellow },
+  { value: "green", label: "薄荷绿", color: MARK_COLOR_PRESETS.green },
+  { value: "blue", label: "天蓝", color: MARK_COLOR_PRESETS.blue },
+  { value: "pink", label: "玫红", color: MARK_COLOR_PRESETS.pink },
+  { value: "orange", label: "蜜桃色", color: MARK_COLOR_PRESETS.orange },
 ];
 
 /** The accent swatch resolves against the live theme, so it is built per render. */
 function boldColourOptions(accent: string): ReadonlyArray<{ value: BoldColorPreset; label: string; color: string | null }> {
   return [
-    { value: "inherit", label: "Inherit", color: null },
-    { value: "accent", label: "Accent", color: accent },
-    { value: "rose", label: "Rose", color: BOLD_COLOR_PRESETS.rose },
-    { value: "orange", label: "Orange", color: BOLD_COLOR_PRESETS.orange },
-    { value: "green", label: "Green", color: BOLD_COLOR_PRESETS.green },
-    { value: "blue", label: "Blue", color: BOLD_COLOR_PRESETS.blue },
-    { value: "violet", label: "Violet", color: BOLD_COLOR_PRESETS.violet },
+    { value: "inherit", label: "继承", color: null },
+    { value: "accent", label: "强调色", color: accent },
+    { value: "rose", label: "玫红", color: BOLD_COLOR_PRESETS.rose },
+    { value: "orange", label: "橙色", color: BOLD_COLOR_PRESETS.orange },
+    { value: "green", label: "绿色", color: BOLD_COLOR_PRESETS.green },
+    { value: "blue", label: "蓝色", color: BOLD_COLOR_PRESETS.blue },
+    { value: "violet", label: "紫罗兰", color: BOLD_COLOR_PRESETS.violet },
   ];
 }
 
@@ -83,27 +83,27 @@ function hueToHex(hue: number): string {
 }
 
 const TOOL_GROUP_OPTIONS: ReadonlyArray<{ value: CollapsibleToolGroup; label: string }> = [
-  { value: "shell", label: "Shell and Git" },
-  { value: "write", label: "Writes" },
-  { value: "edit", label: "Edits" },
-  { value: "read", label: "Reads" },
-  { value: "other", label: "Other tools" },
+  { value: "shell", label: "Shell 与 Git" },
+  { value: "write", label: "写入" },
+  { value: "edit", label: "编辑" },
+  { value: "read", label: "读取" },
+  { value: "other", label: "其他工具" },
 ];
 const LINE_LIMIT_OPTIONS: ReadonlyArray<{ value: `${CollapseLineLimit}`; label: string }> = [
-  { value: "0", label: "Always" },
-  { value: "10", label: "Over 10 lines" },
-  { value: "20", label: "Over 20 lines" },
-  { value: "50", label: "Over 50 lines" },
+  { value: "0", label: "始终" },
+  { value: "10", label: "超过 10 行" },
+  { value: "20", label: "超过 20 行" },
+  { value: "50", label: "超过 50 行" },
 ];
 const CODE_FOLD_OPTIONS: ReadonlyArray<{ value: `${CodeFoldLimit}`; label: string }> = [
-  { value: "0", label: "Never" },
-  { value: "30", label: "Over 30 lines" },
-  { value: "60", label: "Over 60 lines" },
+  { value: "0", label: "从不" },
+  { value: "30", label: "超过 30 行" },
+  { value: "60", label: "超过 60 行" },
 ];
 const PROMPT_FOLD_OPTIONS: ReadonlyArray<{ value: `${PromptFoldLimit}`; label: string }> = [
-  { value: "0", label: "Never" },
-  { value: "15", label: "Over 15 lines" },
-  { value: "30", label: "Over 30 lines" },
+  { value: "0", label: "从不" },
+  { value: "15", label: "超过 15 行" },
+  { value: "30", label: "超过 30 行" },
 ];
 const LINE_SPACING = { compact: 1, balanced: 1.15, spacious: 1.3 } as const;
 const TWO_COLUMN_WIDTH = 860;
@@ -151,7 +151,7 @@ function ColourPicker({ hex, onChange, label, tokens }: { hex: string; onChange(
             <Pressable
               key={hue}
               accessibilityRole="button"
-              accessibilityLabel={`${label}: hue ${hue} degrees`}
+              accessibilityLabel={`${label}：色相 ${hue} 度`}
               onPress={() => onChange(hueToHex(hue))}
               style={[styles.hueChip, { backgroundColor: hueToHex(hue) }]}
             />
@@ -161,7 +161,7 @@ function ColourPicker({ hex, onChange, label, tokens }: { hex: string; onChange(
       <View style={styles.hexRow}>
         <View style={[styles.swatch, { backgroundColor: valid ? draft : tokens.border }]} />
         <TextInput
-          accessibilityLabel={`${label} hex value`}
+          accessibilityLabel={`${label}的十六进制色值`}
           value={draft}
           onChangeText={setDraft}
           onBlur={commit}
@@ -198,7 +198,7 @@ function SwatchRow<T extends string>({
   tokens: ExtendedThemeTokens;
 }) {
   const allOptions = customColor
-    ? [...options, { value: "custom" as T, label: "Custom", color: customColor.hex }]
+    ? [...options, { value: "custom" as T, label: "自定义", color: customColor.hex }]
     : options;
   return (
     <View style={[styles.row, { borderTopColor: tokens.borderSubtle }]}>
@@ -393,7 +393,7 @@ function ChoiceRow<T extends string>({
 }) {
   return (
     <View style={[styles.row, { borderTopColor: tokens.borderSubtle }, disabled && styles.disabled]}>
-      <SettingText title={title} description={description} chip={disabled ? "Disabled" : undefined} tokens={tokens} />
+      <SettingText title={title} description={description} chip={disabled ? "已禁用" : undefined} tokens={tokens} />
       <View style={styles.options}>
         {options.map((option) => {
           const selected = value === option.value;
@@ -541,22 +541,21 @@ export function BeautifulChatSettingsPage({ theme }: PluginSurfaceProps) {
           Beautiful Chat
         </Text>
         <Text style={[styles.description, { color: tokens.foregroundMuted, fontFamily: tokens.fontUi }]}>
-          Changes save automatically on the selected host and apply to all its clients. Reload the
-          chat to update items already on screen.
+          更改会自动保存到所选主机，并应用于该主机的所有客户端。重新加载聊天后，屏幕上已有的内容才会更新。
         </Text>
         {storageError ? (
           <Text accessibilityRole="alert" style={[styles.description, { color: tokens.danger, fontFamily: tokens.fontUi }]}>
-            Preferences could not be saved or loaded: {storageError} Change the setting again to retry.
+            偏好设置无法保存或加载：{storageError} 请重新修改设置以重试。
           </Text>
         ) : null}
       </View>
       <View style={[styles.columns, wide && styles.wideColumns]}>
         {!wide ? preview : null}
         <View style={[styles.settingsColumn, wide && styles.flexColumn]}>
-          <Section title="Appearance" tokens={tokens}>
+          <Section title="外观" tokens={tokens}>
             <SwatchRow<AccentPreset>
-              title="Accent colour"
-              description="Follow the Paseo theme, choose a colour, or mix your own."
+              title="强调色"
+              description="跟随 Paseo 主题、选择预设颜色，或自定义混合颜色。"
               value={preferences.accent}
               options={ACCENT_OPTIONS.map((option) => ({
                 value: option.id,
@@ -571,28 +570,28 @@ export function BeautifulChatSettingsPage({ theme }: PluginSurfaceProps) {
               tokens={tokens}
             />
             <ToggleRow
-              title="Use Paseo fonts"
-              description="Use the fonts and Code size from Paseo's Appearance settings. Empty font settings keep your choices below."
-              chip="Desktop & web"
+              title="使用 Paseo 字体"
+              description="使用 Paseo 外观设置中的字体和代码字号。字体设置留空时，仍使用下方选择。"
+              chip="桌面端与网页端"
               value={preferences.hostFonts}
               onChange={(hostFonts) => updateEnhancerPreferences({ hostFonts })}
               tokens={tokens}
             />
             <ChoiceRow<UiFontPreference>
-              title="Interface font"
-              description="Choose the font for prompts and card text."
+              title="界面字体"
+              description="选择提示词和卡片文字使用的字体。"
               value={preferences.uiFont}
-              options={[{ value: "inter", label: "Inter" }, { value: "system", label: "System" }]}
+              options={[{ value: "inter", label: "Inter" }, { value: "system", label: "系统" }]}
               renderPreview={(value) => <Text style={[styles.fontSample, { color: tokens.foreground, fontFamily: value === "inter" ? fontUi : "System" }]}>Aa</Text>}
-              hint={preferences.hostFonts ? "Paseo's interface font takes priority when it is set." : undefined}
+              hint={preferences.hostFonts ? "已设置 Paseo 界面字体时，将优先使用 Paseo 的字体。" : undefined}
               onChange={(uiFont) => updateEnhancerPreferences({ uiFont })}
               tokens={tokens}
             />
             <ChoiceRow<CodeFontPreference>
-              title="Code font"
-              description="The face for code, diffs, terminal output, and every other monospace surface. Ligatures join code symbols in code blocks only; Literal shows each symbol separately. Custom takes any installed font family."
+              title="代码字体"
+              description="用于代码、差异、终端输出及其他等宽内容的字体。连字仅会在代码块中组合代码符号；原样模式会分别显示每个符号；自定义模式可使用任意已安装的字体族。"
               value={preferences.codeFont}
-              options={[{ value: "code", label: "Ligatures" }, { value: "plain", label: "Literal" }, { value: "custom", label: "Custom" }]}
+              options={[{ value: "code", label: "连字" }, { value: "plain", label: "原样" }, { value: "custom", label: "自定义" }]}
               renderPreview={(value) => (
                 <Text
                   style={[
@@ -613,7 +612,7 @@ export function BeautifulChatSettingsPage({ theme }: PluginSurfaceProps) {
               )}
               hint={
                 preferences.hostFonts && preferences.codeFont !== "custom"
-                  ? "Paseo's code font takes priority when it is set. A custom font takes priority over it."
+                  ? "已设置 Paseo 代码字体时，将优先使用 Paseo 的字体；自定义字体的优先级更高。"
                   : undefined
               }
               onChange={(codeFont) => updateEnhancerPreferences({ codeFont })}
@@ -621,7 +620,7 @@ export function BeautifulChatSettingsPage({ theme }: PluginSurfaceProps) {
             />
             {preferences.codeFont === "custom" ? (
               <TextInput
-                accessibilityLabel="Custom code font family"
+                accessibilityLabel="自定义代码字体族"
                 value={preferences.customCodeFont}
                 onChangeText={(customCodeFont) => updateEnhancerPreferences({ customCodeFont })}
                 placeholder="JetBrains Mono"
@@ -641,18 +640,18 @@ export function BeautifulChatSettingsPage({ theme }: PluginSurfaceProps) {
               />
             ) : null}
             <ChoiceRow<(typeof TEXT_SIZE_OPTIONS)[number]["value"]>
-              title="Text size"
-              description="Scale the text the plugin draws, from replies and code to callouts and badges."
+              title="文字大小"
+              description="缩放插件绘制的文字，包括回复、代码、提示卡和徽标。"
               value={textSizeValue(preferences.textScale)}
               options={TEXT_SIZE_OPTIONS}
               onChange={(textScale) => updateEnhancerPreferences({ textScale: Number(textScale) })}
               tokens={tokens}
             />
             <ChoiceRow<LineSpacingPreference>
-              title="Line spacing"
-              description="Compact keeps the original spacing. Balanced adds 15% and Spacious adds 30%."
+              title="行距"
+              description="紧凑保持原始间距；均衡增加 15%；宽松增加 30%。"
               value={preferences.lineSpacing}
-              options={[{ value: "compact", label: "Compact" }, { value: "balanced", label: "Balanced" }, { value: "spacious", label: "Spacious" }]}
+              options={[{ value: "compact", label: "紧凑" }, { value: "balanced", label: "均衡" }, { value: "spacious", label: "宽松" }]}
               renderPreview={(value) => (
                 <View style={styles.spacingSample}>
                   {[0, 1, 2].map((line) => (
@@ -671,59 +670,59 @@ export function BeautifulChatSettingsPage({ theme }: PluginSurfaceProps) {
               tokens={tokens}
             />
             <ToggleRow
-              title="Frosted glass"
-              description="Blur card backgrounds where supported. Disable this setting for solid surfaces."
+              title="毛玻璃"
+              description="在支持的环境中模糊卡片背景。关闭后使用纯色表面。"
               value={preferences.frostedGlass}
               onChange={(frostedGlass) => updateEnhancerPreferences({ frostedGlass })}
               tokens={tokens}
             />
             <ToggleRow
-              title="Pointer glow"
-              description="Show a soft light under the pointer on cards. Reduced motion disables this effect."
-              chip="Desktop & web"
+              title="指针光晕"
+              description="在指针经过卡片时显示柔和光效。启用“减少动态效果”时会禁用此效果。"
+              chip="桌面端与网页端"
               value={preferences.pointerGlow}
               onChange={(pointerGlow) => updateEnhancerPreferences({ pointerGlow })}
               tokens={tokens}
             />
           </Section>
 
-          <Section title="Replies" tokens={tokens}>
+          <Section title="回复" tokens={tokens}>
             <ToggleRow
-              title="Assistant markdown"
-              description="Style headings, lists, code, and images. Disable this setting for Mermaid diagrams and Paseo's file-path links. On iOS, styled replies cannot be selected by dragging; use Copy, or disable this setting."
+              title="助手 Markdown"
+              description="为标题、列表、代码和图片应用样式。关闭后将改用 Mermaid 图表和 Paseo 的文件路径链接。在 iOS 上，样式化回复无法通过拖动选中；请使用“复制”，或关闭此设置。"
               value={preferences.assistantMarkdown}
               onChange={(assistantMarkdown) => updateEnhancerPreferences({ assistantMarkdown })}
               tokens={tokens}
             />
             <ChoiceRow<MarkdownVariantPreference>
-              title="Markdown style"
-              description="Choose more space, less space, or a code font."
+              title="Markdown 样式"
+              description="选择更宽松、更紧凑的排版，或使用代码字体。"
               value={preferences.markdownVariant}
               disabled={!preferences.assistantMarkdown}
-              hint={!preferences.assistantMarkdown ? "Enable Assistant markdown to change the style." : undefined}
-              options={[{ value: "document", label: "Document" }, { value: "compact", label: "Compact" }, { value: "terminal", label: "Terminal" }]}
+              hint={!preferences.assistantMarkdown ? "启用“助手 Markdown”后可更改样式。" : undefined}
+              options={[{ value: "document", label: "文档" }, { value: "compact", label: "紧凑" }, { value: "terminal", label: "终端" }]}
               renderPreview={(value) => (
                 <View style={[styles.markdownSample, { gap: value === "document" ? 8 : 4 }]}>
                   <Text style={[styles.sampleHeading, { color: tokens.foreground, fontFamily: value === "terminal" ? tokens.fontMono : tokens.fontUi, fontSize: value === "document" ? 16 : 12 }]}>
-                    {value === "terminal" ? "# Title" : "Title"}
+                    {value === "terminal" ? "# 标题" : "标题"}
                   </Text>
-                  <Text style={[styles.sampleBody, { color: tokens.foregroundMuted, fontFamily: value === "terminal" ? tokens.fontMono : tokens.fontUi, lineHeight: value === "document" ? 20 : 16 }]}>{"First line\nNext line"}</Text>
+                  <Text style={[styles.sampleBody, { color: tokens.foregroundMuted, fontFamily: value === "terminal" ? tokens.fontMono : tokens.fontUi, lineHeight: value === "document" ? 20 : 16 }]}>{"第一行\n下一行"}</Text>
                 </View>
               )}
               onChange={(markdownVariant) => updateEnhancerPreferences({ markdownVariant })}
               tokens={tokens}
             />
             <ToggleRow
-              title="Highlight marks"
-              description="Show ==text== in a reply as a marker highlight. Disable this setting to keep the equals signs as typed."
+              title="高亮标记"
+              description="将回复中的 ==文字== 显示为荧光笔高亮。关闭后将保留输入时的等号。"
               value={preferences.markSyntax}
               onChange={(markSyntax) => updateEnhancerPreferences({ markSyntax })}
               tokens={tokens}
             />
             {preferences.markSyntax ? (
               <SwatchRow<MarkColorPreset>
-                title="Mark colour"
-                description="Choose the wash behind highlighted text."
+                title="标记颜色"
+                description="选择高亮文字背后的底色。"
                 value={preferences.markColor}
                 options={MARK_COLOUR_OPTIONS}
                 customColor={{
@@ -735,8 +734,8 @@ export function BeautifulChatSettingsPage({ theme }: PluginSurfaceProps) {
               />
             ) : null}
             <SwatchRow<BoldColorPreset>
-              title="Bold colour"
-              description="Choose the colour of bold text in a reply. Inherit keeps the surrounding text colour."
+              title="粗体颜色"
+              description="选择回复中粗体文字的颜色。“继承”会沿用周围文字的颜色。"
               value={preferences.boldColor}
               options={boldColourOptions(tokens.accent)}
               customColor={{
@@ -747,8 +746,8 @@ export function BeautifulChatSettingsPage({ theme }: PluginSurfaceProps) {
               tokens={tokens}
             />
             <ChoiceRow<`${CodeFoldLimit}`>
-              title="Long code blocks"
-              description="Fold reply code blocks past the limit to their first ten lines. Copy keeps the whole block."
+              title="长代码块"
+              description="超过限制的回复代码块会折叠为前 10 行；“复制”仍会复制完整代码块。"
               value={`${preferences.codeFoldLimit}`}
               options={CODE_FOLD_OPTIONS}
               onChange={(value) => updateEnhancerPreferences({ codeFoldLimit: Number(value) as CodeFoldLimit })}
@@ -756,17 +755,17 @@ export function BeautifulChatSettingsPage({ theme }: PluginSurfaceProps) {
             />
           </Section>
 
-          <Section title="Prompts" tokens={tokens}>
+          <Section title="提示词" tokens={tokens}>
             <ToggleRow
-              title="Enhanced prompt bubble"
-              description="Paseo removes pasted images before the plugin receives a prompt. Disable this setting for Paseo's bubble with images. On iOS, the bubble cannot be selected by dragging; use Copy, or disable this setting."
+              title="增强提示词气泡"
+              description="Paseo 会在插件收到提示词前移除粘贴的图片。若要使用 Paseo 带图片的气泡，请关闭此设置。在 iOS 上，该气泡无法通过拖动选中；请使用“复制”，或关闭此设置。"
               value={preferences.enhancedUserBubble}
               onChange={(enhancedUserBubble) => updateEnhancerPreferences({ enhancedUserBubble })}
               tokens={tokens}
             />
             <ChoiceRow<`${PromptFoldLimit}`>
-              title="Long prompts"
-              description="Fold long prompts to their first eight lines and keep the whole text for Copy. Paseo's own bubble does not fold."
+              title="长提示词"
+              description="将长提示词折叠为前 8 行，但“复制”仍会保留完整文字。Paseo 自带的气泡不会折叠。"
               value={`${preferences.promptFoldLimit}`}
               options={PROMPT_FOLD_OPTIONS}
               onChange={(value) => updateEnhancerPreferences({ promptFoldLimit: Number(value) as PromptFoldLimit })}
@@ -774,76 +773,76 @@ export function BeautifulChatSettingsPage({ theme }: PluginSurfaceProps) {
             />
           </Section>
 
-          <Section title="Timeline" tokens={tokens}>
+          <Section title="时间线" tokens={tokens}>
             <MultiChoiceRow<CollapsibleToolGroup>
-              title="Collapse when finished"
-              description="Fold the selected tool groups after completion. Failed calls and agent questions stay open, and each header still opens or closes its card."
+              title="完成后折叠"
+              description="所选工具组完成后自动折叠。失败的调用和智能体提问会保持展开，每个标题仍可打开或关闭对应卡片。"
               values={preferences.collapseTools}
               options={TOOL_GROUP_OPTIONS}
               onChange={(values) => updateEnhancerPreferences({ collapseTools: COLLAPSIBLE_TOOL_GROUPS.filter((group) => values.includes(group)) })}
               tokens={tokens}
             />
             <ChoiceRow<`${CollapseLineLimit}`>
-              title="Collapse length"
-              description="Fold every selected card, or only cards longer than the limit. Short results stay open when a limit is set."
+              title="折叠长度"
+              description="折叠所有选中的卡片，或仅折叠超过限制的卡片。设置行数限制后，较短的结果会保持展开。"
               value={`${preferences.collapseLineLimit}`}
               options={LINE_LIMIT_OPTIONS}
               onChange={(value) => updateEnhancerPreferences({ collapseLineLimit: Number(value) as CollapseLineLimit })}
               tokens={tokens}
             />
             <ToggleRow
-              title="Open while running"
-              description="Open tool cards while their calls run, then apply the rules above. Disable this setting to apply those rules from the start."
+              title="运行时展开"
+              description="工具调用运行期间展开对应卡片，结束后再应用上述规则。关闭后，将从一开始就应用上述规则。"
               value={preferences.expandWhileRunning}
               onChange={(expandWhileRunning) => updateEnhancerPreferences({ expandWhileRunning })}
               tokens={tokens}
             />
             <ToggleRow
-              title="Let Paseo fold tool calls"
-              description="Paseo draws tool calls when its Chat display folds them."
-              chip="Desktop & web"
+              title="允许 Paseo 折叠工具调用"
+              description="当 Paseo 的聊天显示折叠工具调用时，由 Paseo 绘制这些调用。"
+              chip="桌面端与网页端"
               value={preferences.paseoToolFolding}
               onChange={(paseoToolFolding) => updateEnhancerPreferences({ paseoToolFolding })}
               tokens={tokens}
             />
             {preferences.paseoToolFolding && (
               <ToggleRow
-                title="Show reasoning between folded calls"
-                description="Off hides reasoning only while Paseo folds tool calls."
+                title="在折叠调用之间显示推理"
+                description="关闭后，仅在 Paseo 折叠工具调用期间隐藏推理。"
                 value={preferences.overviewReasoning}
                 onChange={(overviewReasoning) => updateEnhancerPreferences({ overviewReasoning })}
                 tokens={tokens}
               />
             )}
             <ToggleRow
-              title="Fold reasoning summaries"
-              description="Fold reasoning summaries after completion. Disable this setting to keep every summary open."
+              title="折叠推理摘要"
+              description="推理完成后折叠摘要。关闭此设置可让所有摘要保持展开。"
               value={preferences.collapseReasoning}
               onChange={(collapseReasoning) => updateEnhancerPreferences({ collapseReasoning })}
               tokens={tokens}
             />
             <ToggleRow
-              title="Live checklist"
-              description="Show only checklist updates that the feed identifies as current. Keep cards visible while the feed is unavailable. Disable this setting to show every update."
+              title="实时检查清单"
+              description="仅显示信息流标记为当前状态的检查清单更新。信息流不可用时，卡片会保持可见。关闭此设置可显示每次更新。"
               value={preferences.liveChecklist}
               onChange={(liveChecklist) => updateEnhancerPreferences({ liveChecklist })}
               tokens={tokens}
             />
           </Section>
 
-          <Section title="Interaction" tokens={tokens}>
+          <Section title="交互" tokens={tokens}>
             <ToggleRow
-              title="Selection actions"
-              description="Select text to show Copy and Add to chat. Add to chat inserts the selection as a quote or code block."
-              chip="Desktop & web"
+              title="选中操作"
+              description="选中文字后显示“复制”和“添加到聊天”。“添加到聊天”会将所选内容作为引用或代码块插入。"
+              chip="桌面端与网页端"
               value={preferences.selectionActions}
               onChange={(selectionActions) => updateEnhancerPreferences({ selectionActions })}
               tokens={tokens}
             />
             <ToggleRow
-              title="Ask before opening files"
-              description="Ask before a safe file opens on the computer that runs the Paseo daemon. Other files and paths outside the working folder always ask."
-              chip="Desktop & web"
+              title="打开文件前确认"
+              description="在运行 Paseo 守护进程的电脑上打开安全文件前进行确认。其他文件以及工作目录之外的路径始终需要确认。"
+              chip="桌面端与网页端"
               value={preferences.confirmOpenPath}
               onChange={(confirmOpenPath) => updateEnhancerPreferences({ confirmOpenPath })}
               tokens={tokens}
@@ -854,7 +853,7 @@ export function BeautifulChatSettingsPage({ theme }: PluginSurfaceProps) {
             onPress={resetEnhancerPreferences}
             style={({ pressed }) => [styles.reset, { borderColor: tokens.border, backgroundColor: pressed ? tokens.surface2 : tokens.surface1 }]}
           >
-            <Text style={[styles.optionLabel, { color: tokens.foreground, fontFamily: tokens.fontUi }]}>Reset defaults</Text>
+            <Text style={[styles.optionLabel, { color: tokens.foreground, fontFamily: tokens.fontUi }]}>恢复默认设置</Text>
           </Pressable>
         </View>
         {wide ? preview : null}
