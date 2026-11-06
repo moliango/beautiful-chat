@@ -129,6 +129,8 @@ export interface EnhancerPreferences {
   paseoToolFolding: boolean;
   /** Show reasoning while Paseo folds tool calls. */
   overviewReasoning: boolean;
+  /** Fold every plugin-rendered tool card and reply code block until the reader opens it. */
+  foldAllByDefault: boolean;
   /** Tool card groups that fold shut once their call finishes. */
   collapseTools: CollapsibleToolGroup[];
   /** A finished card at or under this many lines stays open. Zero folds them all. */
@@ -176,6 +178,7 @@ export const DEFAULT_PREFERENCES: Readonly<EnhancerPreferences> = {
   markdownVariant: "document",
   paseoToolFolding: false,
   overviewReasoning: true,
+  foldAllByDefault: false,
   collapseTools: [...COLLAPSIBLE_TOOL_GROUPS],
   collapseLineLimit: 0,
   expandWhileRunning: true,

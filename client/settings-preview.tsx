@@ -96,7 +96,7 @@ export function SettingsPreview({
           defaultExpanded={!preferences.collapseReasoning}
         />
         <ToolCallout
-          key={`tool-${preferences.expandWhileRunning}-${preferences.collapseTools.join(",")}-${preferences.collapseLineLimit}`}
+          key={`tool-${preferences.foldAllByDefault}-${preferences.expandWhileRunning}-${preferences.collapseTools.join(",")}-${preferences.collapseLineLimit}`}
           data={BASH}
           tokens={tokens}
           defaultExpanded={toolCardStartsExpanded(BASH, preferences)}
@@ -108,6 +108,7 @@ export function SettingsPreview({
               tokens={tokens}
               variant={preferences.markdownVariant}
               foldCodeAfter={preferences.codeFoldLimit}
+              foldCodeByDefault={preferences.foldAllByDefault}
             />
           ) : (
             <Text style={[styles.note, textStyle]}>Paseo 会显示回复。启用“助手 Markdown”后可预览其样式。</Text>

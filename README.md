@@ -214,6 +214,7 @@ Devicon brand marks, and the file-manager link.
 | Replies | Long code blocks | Fold reply code blocks over 30 or 60 lines to a 10-line preview. Copy keeps the whole block. |
 | Prompts | Enhanced prompt bubble | Show the plugin's prompt bubble without pasted images. Disable this setting for Paseo's bubble with images. |
 | Prompts | Long prompts | Fold prompts over 15 or 30 lines to an 8-line preview. Paseo's own bubble does not fold. |
+| Timeline | Fold everything by default | Keep every plugin-rendered tool card and reply code block fully folded until clicked. This takes priority over the tool and code folding rules below. |
 | Timeline | Collapse when finished | Choose shell, write, edit, read, and other tool groups independently. Failed calls and agent questions stay open. |
 | Timeline | Collapse length | Fold every selected card, or only cards over 10, 20, or 50 lines. |
 | Timeline | Open while running | Open tool cards while their calls run, then apply the collapse rules. Disable this setting to apply those rules from the start. |

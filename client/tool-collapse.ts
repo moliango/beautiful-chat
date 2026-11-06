@@ -48,6 +48,7 @@ export function toolCardStartsExpanded(
   data: ToolCalloutData,
   preferences: EnhancerPreferences,
 ): boolean {
+  if (preferences.foldAllByDefault) return false;
   if (data.status === "failed" || data.tool === "ask") return true;
   if (data.status === "running" && preferences.expandWhileRunning) return true;
   if (!preferences.collapseTools.includes(toolGroup(data.tool))) return true;

@@ -31,6 +31,8 @@ export interface MarkdownViewProps {
   variant: MarkdownVariant;
   /** A code block longer than this folds to a preview. Omitted or zero: never. */
   foldCodeAfter?: number;
+  /** Fold every code block completely until the reader opens it. */
+  foldCodeByDefault?: boolean;
   /** The agent's working directory, which a relative image path resolves against. */
   cwd?: string | null;
   /**
@@ -255,6 +257,7 @@ interface RenderContext {
   tokens: ExtendedThemeTokens;
   metrics: VariantMetrics;
   foldCodeAfter: number;
+  foldCodeByDefault: boolean;
   cwd: string | null;
   onRevealFile?: (path: string) => void;
 }
@@ -264,6 +267,7 @@ export function MarkdownView({
   tokens,
   variant,
   foldCodeAfter = 0,
+  foldCodeByDefault = false,
   cwd,
   marks = true,
   onRevealFile,
@@ -275,8 +279,16 @@ export function MarkdownView({
   );
   const styles = useMemo(() => buildStyles(tokens, metrics), [tokens, metrics]);
   const context = useMemo<RenderContext>(
-    () => ({ styles, tokens, metrics, foldCodeAfter, cwd: cwd ?? null, onRevealFile }),
-    [styles, tokens, metrics, foldCodeAfter, cwd, onRevealFile],
+    () => ({
+      styles,
+      tokens,
+      metrics,
+      foldCodeAfter,
+      foldCodeByDefault,
+      cwd: cwd ?? null,
+      onRevealFile,
+    }),
+    [styles, tokens, metrics, foldCodeAfter, foldCodeByDefault, cwd, onRevealFile],
   );
 
   return (
@@ -347,6 +359,7 @@ function renderBlock(
             compact={metrics.codeCompact}
             showLineNumbers={metrics.codeLineNumbers}
             foldAfterLines={context.foldCodeAfter}
+            foldByDefault={context.foldCodeByDefault}
           />
         </View>
       );

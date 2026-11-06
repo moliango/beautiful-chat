@@ -61,7 +61,10 @@ export default function contribute(client: PluginClientContext) {
     Component: BeautifulChatSettingsPage,
   });
 
-  let foldsToolCalls = getEnhancerPreferences().paseoToolFolding && hostFoldsToolCalls();
+  let foldsToolCalls =
+    !getEnhancerPreferences().foldAllByDefault &&
+    getEnhancerPreferences().paseoToolFolding &&
+    hostFoldsToolCalls();
   let hidesReasoning = foldsToolCalls && !getEnhancerPreferences().overviewReasoning;
 
   // Live chat timeline interception: render real tool calls, reasoning, and todos with enhanced UI.
@@ -136,7 +139,8 @@ export default function contribute(client: PluginClientContext) {
       stopObservingHost?.();
       stopObservingHost = undefined;
     }
-    const nextFoldsToolCalls = preferences.paseoToolFolding && hostFoldsToolCalls();
+    const nextFoldsToolCalls =
+      !preferences.foldAllByDefault && preferences.paseoToolFolding && hostFoldsToolCalls();
     const nextHidesReasoning = nextFoldsToolCalls && !preferences.overviewReasoning;
     if (nextFoldsToolCalls === foldsToolCalls && nextHidesReasoning === hidesReasoning) return;
     foldsToolCalls = nextFoldsToolCalls;

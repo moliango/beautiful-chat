@@ -89,7 +89,8 @@ export function LiveToolCallRenderer({
     calloutData.tool === "system" ? { ...calloutData, tool: "note" } : calloutData;
   // Advisor notes open: a collapsed one says only "Advisor · 1 note".
   const isExpanded =
-    displayData.tool === "advisor" || toolCardStartsExpanded(displayData, preferences);
+    (!preferences.foldAllByDefault && displayData.tool === "advisor") ||
+    toolCardStartsExpanded(displayData, preferences);
 
   // The daemon side owns the shell, so revealing a file is one RPC. A path the
   // daemon cannot stat answers with an error the press simply ignores.
@@ -321,6 +322,7 @@ export function LiveAssistantRenderer({
           tokens={tokens}
           variant={preferences.markdownVariant}
           foldCodeAfter={preferences.codeFoldLimit}
+          foldCodeByDefault={preferences.foldAllByDefault}
           cwd={cwd}
           marks={preferences.markSyntax}
           onRevealFile={revealFile}

@@ -165,3 +165,17 @@ for (const variant of ["document", "compact", "terminal"]) {
     }
   });
 }
+
+test("SyntaxHighlightBlock: fold by default hides code until the reader opens it", () => {
+  const h = harness("client/components/syntax-highlight.tsx", "SyntaxHighlightBlock", async () => {});
+  h.props.code = "const foldAllMarker = 42;";
+  h.props.foldByDefault = true;
+  const collapsed = h.render();
+  assert.equal(JSON.stringify(collapsed).includes("foldAllMarker"), false);
+  const toggle = h.nodes(collapsed, n =>
+    n.type === "Pressable" && n.props.accessibilityState?.expanded === false
+  )[0];
+  assert.ok(toggle, "collapsed code has an expand control");
+  toggle.props.onPress();
+  assert.equal(JSON.stringify(h.render()).includes("foldAllMarker"), true);
+});

@@ -26,6 +26,8 @@ interface SyntaxHighlightProps {
   onRevealFile?: () => void;
   /** A block longer than this many lines folds to a preview. Omitted or zero: never. */
   foldAfterLines?: number;
+  /** Fold the whole block to its header until the reader opens it. */
+  foldByDefault?: boolean;
 }
 
 /** How much of a folded block stays in view. */
@@ -483,6 +485,7 @@ export function SyntaxHighlightBlock({
   compact = false,
   onRevealFile,
   foldAfterLines = 0,
+  foldByDefault = false,
 }: SyntaxHighlightProps) {
   // The host owns the clipboard on every platform; navigator only exists on web.
   const { copied, handleCopy, fallbackText, setFallbackText } = useCopyText(code);
@@ -523,9 +526,13 @@ export function SyntaxHighlightBlock({
   const shikiLines = highlightResult?.lines;
   const diffBodyLines = highlightResult?.diffLines;
 
-  const foldable = foldAfterLines > 0 && lines.length > foldAfterLines;
+  const foldable = foldByDefault || (foldAfterLines > 0 && lines.length > foldAfterLines);
   const folded = foldable && !unfolded;
-  const shownLines = folded ? lines.slice(0, FOLD_PREVIEW_LINES) : lines;
+  const shownLines = folded
+    ? foldByDefault
+      ? []
+      : lines.slice(0, FOLD_PREVIEW_LINES)
+    : lines;
 
   const styles = useMemo(
     () =>
@@ -709,63 +716,65 @@ export function SyntaxHighlightBlock({
         </View>
       )}
 
-      <View {...selectionCodeSurface} style={styles.codeArea}>
-        {shownLines.map((line, idx) => {
-          const shikiLine = shikiLines?.[idx];
-          // The patched file's tokens, and only for a line the file owns. A
-          // chrome line keeps the diff rendering it has today.
-          const bodyLine = isDiff && !isDiffChrome(line) ? diffBodyLines?.[idx] : undefined;
-          const kind = diffTint(lines[idx], isDiff);
-          const lineBg =
-            kind === "add"
-              ? tokens.syntax.diffAddBg
-              : kind === "remove"
-                ? tokens.syntax.diffRemoveBg
-                : "transparent";
+      {shownLines.length > 0 ? (
+        <View {...selectionCodeSurface} style={styles.codeArea}>
+          {shownLines.map((line, idx) => {
+            const shikiLine = shikiLines?.[idx];
+            // The patched file's tokens, and only for a line the file owns. A
+            // chrome line keeps the diff rendering it has today.
+            const bodyLine = isDiff && !isDiffChrome(line) ? diffBodyLines?.[idx] : undefined;
+            const kind = diffTint(lines[idx], isDiff);
+            const lineBg =
+              kind === "add"
+                ? tokens.syntax.diffAddBg
+                : kind === "remove"
+                  ? tokens.syntax.diffRemoveBg
+                  : "transparent";
 
-          // Adjacent added and removed rows form one hunk. Only the hunk's
-          // outer edges round, so a delete-to-add transition stays flush.
-          const previousKind = diffTint(lines[idx - 1], isDiff);
-          const nextKind = diffTint(lines[idx + 1], isDiff);
-          const opensRun = kind !== null && previousKind === null;
-          const closesRun = kind !== null && nextKind === null;
-          const corner = radius.chip;
+            // Adjacent added and removed rows form one hunk. Only the hunk's
+            // outer edges round, so a delete-to-add transition stays flush.
+            const previousKind = diffTint(lines[idx - 1], isDiff);
+            const nextKind = diffTint(lines[idx + 1], isDiff);
+            const opensRun = kind !== null && previousKind === null;
+            const closesRun = kind !== null && nextKind === null;
+            const corner = radius.chip;
 
-          return (
-            <View
-              key={idx}
-              style={[
-                styles.lineRow,
-                {
-                  opacity: folded
-                    ? (FOLD_FADE[idx - (FOLD_PREVIEW_LINES - FOLD_FADE.length)] ?? 1)
-                    : 1,
-                  backgroundColor: lineBg,
-                  borderTopLeftRadius: opensRun ? corner : 0,
-                  borderTopRightRadius: opensRun ? corner : 0,
-                  borderBottomLeftRadius: closesRun ? corner : 0,
-                  borderBottomRightRadius: closesRun ? corner : 0,
-                },
-              ]}
-            >
-              {showLineNumbers && <Text style={styles.lineNumber}>{idx + 1}</Text>}
-              <Text selectable style={styles.lineContent}>
-                {bodyLine
-                  ? renderDiffBodyLine(line, bodyLine, tokens)
-                  : shikiLine
-                    ? renderShikiLine(shikiLine, tokens)
-                    : renderSyntaxLine(
-                        line,
-                        isDiff,
-                        language,
-                        lineDialects[idx] ?? codeLanguage,
-                        tokens,
-                      )}
-              </Text>
-            </View>
-          );
-        })}
-      </View>
+            return (
+              <View
+                key={idx}
+                style={[
+                  styles.lineRow,
+                  {
+                    opacity: folded
+                      ? (FOLD_FADE[idx - (FOLD_PREVIEW_LINES - FOLD_FADE.length)] ?? 1)
+                      : 1,
+                    backgroundColor: lineBg,
+                    borderTopLeftRadius: opensRun ? corner : 0,
+                    borderTopRightRadius: opensRun ? corner : 0,
+                    borderBottomLeftRadius: closesRun ? corner : 0,
+                    borderBottomRightRadius: closesRun ? corner : 0,
+                  },
+                ]}
+              >
+                {showLineNumbers && <Text style={styles.lineNumber}>{idx + 1}</Text>}
+                <Text selectable style={styles.lineContent}>
+                  {bodyLine
+                    ? renderDiffBodyLine(line, bodyLine, tokens)
+                    : shikiLine
+                      ? renderShikiLine(shikiLine, tokens)
+                      : renderSyntaxLine(
+                          line,
+                          isDiff,
+                          language,
+                          lineDialects[idx] ?? codeLanguage,
+                          tokens,
+                        )}
+                </Text>
+              </View>
+            );
+          })}
+        </View>
+      ) : null}
       {foldable ? (
         <Pressable
           accessibilityRole="button"
@@ -774,7 +783,9 @@ export function SyntaxHighlightBlock({
           style={styles.foldBar}
         >
           <Text style={styles.foldText}>
-            {folded ? `Show all ${lines.length} lines` : "Show less"}
+            {folded
+              ? `Show all ${lines.length} ${lines.length === 1 ? "line" : "lines"}`
+              : "Show less"}
           </Text>
           <Glyph
             name={folded ? "ChevronDown" : "ChevronUp"}

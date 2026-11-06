@@ -45,6 +45,7 @@ export const preferenceOverridesSchema = z.object({
   boldCustomColor: hex,
   paseoToolFolding: boolean,
   overviewReasoning: boolean,
+  foldAllByDefault: boolean,
   collapseTools: optional(
     z.array(z.enum(["shell", "write", "edit", "read", "other"])).transform((groups) => [...new Set(groups)]),
   ),

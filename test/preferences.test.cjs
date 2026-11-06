@@ -365,6 +365,27 @@ test("reasoning cards start folded until the reader opens them", () => {
   assert.equal(reasoningCardStartsExpanded({ ...p.DEFAULT_PREFERENCES }), false);
 });
 
+test("fold all takes priority over tool status and collapse rules", () => {
+  const h = harness();
+  const p = h.preferences;
+  const { toolCardStartsExpanded } = h.load("client/tool-collapse.ts");
+  const preferences = {
+    ...p.DEFAULT_PREFERENCES,
+    foldAllByDefault: true,
+    expandWhileRunning: true,
+    collapseTools: [],
+    collapseLineLimit: 50,
+  };
+  for (const data of [
+    { tool: "bash", status: "running" },
+    { tool: "ask", status: "completed" },
+    { tool: "generic", status: "failed" },
+    { tool: "read", status: "completed" },
+  ]) {
+    assert.equal(toolCardStartsExpanded(data, preferences), false);
+  }
+});
+
 test("text size clamps finite values and persists across iOS and web host clients", async () => {
   const server = host();
   const p = harness("ios").preferences;

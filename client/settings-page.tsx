@@ -747,7 +747,7 @@ export function BeautifulChatSettingsPage({ theme }: PluginSurfaceProps) {
             />
             <ChoiceRow<`${CodeFoldLimit}`>
               title="长代码块"
-              description="超过限制的回复代码块会折叠为前 10 行；“复制”仍会复制完整代码块。"
+              description="超过限制的回复代码块会折叠为前 10 行；“复制”仍会复制完整代码块。开启“全部默认折叠”时，代码块会完全收起。"
               value={`${preferences.codeFoldLimit}`}
               options={CODE_FOLD_OPTIONS}
               onChange={(value) => updateEnhancerPreferences({ codeFoldLimit: Number(value) as CodeFoldLimit })}
@@ -774,6 +774,13 @@ export function BeautifulChatSettingsPage({ theme }: PluginSurfaceProps) {
           </Section>
 
           <Section title="时间线" tokens={tokens}>
+            <ToggleRow
+              title="全部默认折叠"
+              description="开启后，插件绘制的所有工具卡片和回复代码块一出现就只显示标题；点击工具标题或代码块的“显示全部”即可展开。此开关优先于下方折叠规则。"
+              value={preferences.foldAllByDefault}
+              onChange={(foldAllByDefault) => updateEnhancerPreferences({ foldAllByDefault })}
+              tokens={tokens}
+            />
             <MultiChoiceRow<CollapsibleToolGroup>
               title="完成后折叠"
               description="所选工具组完成后自动折叠。失败的调用和智能体提问会保持展开，每个标题仍可打开或关闭对应卡片。"
